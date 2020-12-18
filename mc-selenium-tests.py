@@ -12,6 +12,8 @@ import os
 # os.system('export PATH=~/usr/local/bin:$PATH')
 # os.system('wget https://dl.google.com/linux/direct/google-chrome-stable_current_x86_64.rpm')
 # os.system('sudo yum localinstall -y google-chrome-stable_current_x86_64.rpm')
+# os.system('sudo npm install npm-install-all -g')
+# os.system('sudo npm install -g selenium-side-runner')
 
 
 import pytest
@@ -29,7 +31,6 @@ from selenium.common.exceptions import NoSuchElementException, TimeoutException
 from selenium.webdriver.chrome.options import Options
 
 # global vars for all functions
-print("imports are done")
 
 chrome_options = Options()
 # chrome_options.add_argument("--headless")
@@ -40,20 +41,19 @@ driver = webdriver.Chrome(chrome_options=chrome_options)
 mc_ip = sys.argv[1]
 
 
-def pre_reqs():
-    os.system('sudo npm install npm-install-all -g')
-    os.system('sudo npm install -g selenium-side-runner')
-
-
 
 # login
 def login():
-    driver.get("https://" + mc_ip + "/dashboard")
+    driver.get("https://" + mc_ip + "/login/auth")
     driver.set_window_size(1440, 877)
+    # driver.find_element(By.ID, "username").click()
+    driver.find_element(By.ID, "details-button").click()
+    driver.find_element(By.ID, "proceed-link").click()
     driver.find_element(By.ID, "username").click()
     driver.find_element(By.ID, "username").send_keys("admin")
+    driver.find_element(By.ID, "password").click()
     driver.find_element(By.ID, "password").send_keys("userpass")
-    driver.find_element(By.ID, "password").send_keys(Keys.ENTER)
+    driver.find_element(By.ID, "submitButton").click()
 
 
 # assign syslog server
@@ -72,7 +72,7 @@ def firmware_upload():
 
 
 # disable syslog - used for initial testing of script only
-def profile_disable():
+def profile_upload():
     # driver.get("https://" + mc_ip + "/diagnostics/event_log.html")
     driver.find_element(By.LINK_TEXT, "PROFILE").click()
     driver.find_element(By.CSS_SELECTOR, ".mcImportLabel").click()
@@ -86,9 +86,10 @@ def logout():
 
 
 def main():
-    # pre_reqs()
     login()
-    # logout()
+    firmware_upload()
+    profile_upload()
+    logout()
 
 
 main()

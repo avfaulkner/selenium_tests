@@ -2,7 +2,7 @@
 
 import os
 
-# os.system('sudo yum install -y python3 python3-pip pytest xvfb default-jdk nodejs npm google-chrome-stable')
+# os.system('sudo yum install -y python3 python3-pip pytest xvfb default-jdk nodejs npm')
 # os.system('sudo pip3 install selenium')
 # os.system('wget https://chromedriver.storage.googleapis.com/86.0.4240.22/chromedriver_linux64.zip')
 # os.system('unzip ./chromedriver_linux64.zip')
@@ -10,6 +10,8 @@ import os
 # os.system('sudo chown root:root /usr/local/bin/chromedriver')
 # os.system('sudo chmod +x /usr/local/bin/chromedriver')
 # os.system('export PATH=~/usr/local/bin:$PATH')
+# os.system('wget https://dl.google.com/linux/direct/google-chrome-stable_current_x86_64.rpm')
+# os.system('sudo yum localinstall -y google-chrome-stable_current_x86_64.rpm')
 
 
 import pytest
